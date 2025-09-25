@@ -9,7 +9,9 @@
 #pragma once
 
 #include "Engine/Vec2.hpp"
+#include "OpenGL/Handle.hpp"
 #include "RGBA.hpp"
+#include <GL/glew.h>
 #include <filesystem>
 #include <gsl/gsl>
 
@@ -150,11 +152,11 @@ namespace CS200
 
     private:
 
-    unsigned char *data;
-    int width;
-    int height;
-    int file_num_channels;
-    int num_channels;
+        unsigned char* data_;
+        int            width;
+        int            height;
+        int            file_num_channels;
+        int            num_channels = 4;
     };
 
 }
