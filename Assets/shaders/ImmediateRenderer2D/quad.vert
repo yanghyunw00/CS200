@@ -2,7 +2,7 @@
 
 /**
  * \file
- * \author TODO Your Name
+ * \author Hyunwoo Yang
  * \date 2025 Fall
  * \par CS200 Computer Graphics I
  * \copyright DigiPen Institute of Technology
@@ -13,17 +13,16 @@ layout(location = 1) in vec2 aTexCoord;
 
 out vec2 vTexCoord;
 
-
 uniform mat3 uModel;
-uniform mat3 uToNDC;
 uniform mat3 uTexCoordTransform;
+uniform mat3 uViewProjection;
+uniform float uDepth;
 
 void main()
 {
-    vec3 ndc_point = uToNDC * uModel * vec3(aVertexPosition, 1.0);
-    gl_Position = vec4(ndc_point.xy, 0.0, 1.0);
+    vec3 ndc_pos = uViewProjection * uModel * vec3(aVertexPosition, 1.0);
+    gl_Position = vec4(ndc_pos.xy, uDepth, 1.0);
+    
     vec3 tex_coords = uTexCoordTransform * vec3(aTexCoord, 1.0);
     vTexCoord = tex_coords.st;
 }
-
-

@@ -2,15 +2,17 @@
  * \file
  * \author Rudy Castan
  * \author Jonathan Holmes
- * \author TODO Your Name
+ * \author Hyunwoo Yang
  * \date 2025 Fall
  * \par CS200 Computer Graphics I
  * \copyright DigiPen Institute of Technology
  */
 
 #pragma once
+#include "Engine/Texture.hpp"
 #include <filesystem>
-#include <map>
+#include <memory>
+#include <unordered_map>
 #include <vector>
 
 namespace CS230
@@ -125,6 +127,6 @@ namespace CS230
         void Unload();
 
     private:
-         // TODO Add private member variables as needed
+        std::unordered_map<std::string, std::unique_ptr<Texture>> texture_cache;
     };
 }

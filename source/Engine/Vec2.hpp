@@ -1,4 +1,4 @@
-]/**
+/**
  * \file Vec2.hpp
  * \author Jonathan Holmes
  * \author Hyunwoo Yang

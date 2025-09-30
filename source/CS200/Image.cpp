@@ -29,12 +29,13 @@ namespace CS200
 
     Image::Image(Image&& temporary) noexcept
     {
-        data_            = temporary.data_;
-        width            = temporary.width;
-        height           = temporary.height;
-        temporary.data_  = nullptr;
-        temporary.width  = 0;
-        temporary.height = 0;
+        data_             = temporary.data_;
+        width             = temporary.width;
+        height            = temporary.height;
+        file_num_channels = temporary.file_num_channels;
+        temporary.data_   = nullptr;
+        temporary.width   = 0;
+        temporary.height  = 0;
     }
 
     Image& Image::operator=(Image&& temporary) noexcept
@@ -44,6 +45,7 @@ namespace CS200
             std::swap(data_, temporary.data_);
             std::swap(width, temporary.width);
             std::swap(height, temporary.height);
+            std::swap(file_num_channels, temporary.file_num_channels);
         }
         return *this;
     }

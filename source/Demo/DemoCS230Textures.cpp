@@ -1,4 +1,4 @@
-/**
+﻿/**
  * \file
  * \author Rudy Castan
  * \author Jonathan Holmes
@@ -66,24 +66,29 @@ void DemoCS230Textures::Update()
 void DemoCS230Textures::Draw() const
 {
     CS200::RenderingAPI::Clear();
-    auto& renderer_2d = Engine::GetRenderer2D();
-    renderer_2d.BeginScene(CS200::build_ndc_matrix(Engine::GetWindow().GetSize()));
+    auto&      renderer_2d = Engine::GetRenderer2D();
+    const auto window_size = Engine::GetWindow().GetSize();
+    renderer_2d.BeginScene(CS200::build_ndc_matrix(window_size));
+
     const auto background_tint = CS200::pack_color(backgroundTintColor);
     for (const auto& texture : backgroundTextures)
     {
         texture->Draw(Math::TransformationMatrix{}, background_tint);
     }
+
     CS230::Texture*  currentTexture = (selectedCharacter == CharacterType::Robot) ? robotTexture : catTexture;
     const auto       middle_x       = Engine::GetWindowEnvironment().DisplaySize.x / 2.0;
     const auto       texel_base     = getCurrentFrameTexelPosition();
     const auto       frame_size     = getCurrentFrameSize();
     const auto       hot_spot       = getCurrentHotSpot();
     constexpr double floor_y        = 80.0;
-    const auto       to_center      = Math::TranslationMatrix(Math::vec2{ static_cast<double>(-hot_spot.x), static_cast<double>(-hot_spot.y) });
-    const auto       scale          = faceRight ? Math::ScaleMatrix({ 1.0, 1.0 }) : Math::ScaleMatrix({ -1.0, 1.0 });
-    const auto       translate      = Math::TranslationMatrix(Math::vec2{ middle_x, floor_y });
-    const auto       transform      = translate * scale * to_center;
-    const auto       character_tint = CS200::pack_color(characterTintColor);
+
+
+    const auto to_center = Math::TranslationMatrix(Math::vec2{ static_cast<double>(-hot_spot.x), static_cast<double>(-hot_spot.y) });
+    const auto scale     = faceRight ? Math::ScaleMatrix({ 1.0, 1.0 }) : Math::ScaleMatrix({ -1.0, 1.0 });
+    const auto translate = Math::TranslationMatrix(Math::vec2{ middle_x, floor_y });
+    const auto transform = translate * scale * to_center;
+    const auto character_tint = CS200::pack_color(characterTintColor);
     currentTexture->Draw(transform, texel_base, frame_size, character_tint);
     renderer_2d.EndScene();
 }
@@ -92,7 +97,7 @@ void DemoCS230Textures::DrawImGui()
 {
     if (ImGui::Begin("CS230 Textures Demo"))
     {
-         const auto timing = Engine::GetWindowEnvironment();
+        const auto timing = Engine::GetWindowEnvironment();
         ImGui::LabelText("FPS", "%d", timing.FPS);
         ImGui::SeparatorText("Tint Color Controls");
         ImGui::ColorEdit4("Background Tint", targetBackgroundTintColor.data());

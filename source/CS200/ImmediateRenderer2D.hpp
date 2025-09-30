@@ -1,13 +1,14 @@
 /**
  * \file
  * \author Rudy Castan
- * \author TODO Your Name
+ * \author Hyunwoo Yang
  * \date 2025 Fall
  * \par CS200 Computer Graphics I
  * \copyright DigiPen Institute of Technology
  */
 #pragma once
 
+#include "Engine/Matrix.hpp"
 #include "IRenderer2D.hpp"
 #include "OpenGL/Shader.hpp"
 #include "OpenGL/VertexArray.hpp"
@@ -201,6 +202,22 @@ namespace CS200
 
 
     private:
-        // TODO: Add private member variables for OpenGL handles and resources
+
+
+        OpenGL::VertexArrayHandle vao{}; // Vertex Array Object
+        OpenGL::BufferHandle      vbo{}; //  Vertex Buffer Object
+        OpenGL::BufferHandle      ibo{}; //  Index Buffer Object
+        OpenGL::BufferHandle      uniformBlock{};
+
+        GLsizei indicesCount = 0;
+
+        OpenGL::VertexArrayHandle sdfVao{}; 
+        OpenGL::BufferHandle      sdfVbo{}; 
+
+        OpenGL::CompiledShader textureShader{};
+        OpenGL::CompiledShader sdfShader{};
+
+        OpenGL::BufferHandle       uboCamera{};
+        Math::TransformationMatrix viewProjection;
     };
 }

@@ -71,7 +71,8 @@ namespace CS230
         bool                      closed     = false;
         Math::ivec2               size       = { 800, 600 };
 
-        WindowEventCallback            event_callback;
+                WindowEventCallback       eventCallback;
+
         std::function<void(SDL_Event)> func_event_callback;
         static float                   background_r;
         static float                   background_g;

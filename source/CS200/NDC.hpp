@@ -61,25 +61,6 @@ namespace CS200
      */
     inline Math::TransformationMatrix build_ndc_matrix(Math::ivec2 view_size) noexcept
     {
-        const float width  = static_cast<float>(view_size.x);
-        const float height = static_cast<float>(view_size.y);
-
-        if (width <= 0.0f || height <= 0.0f)
-        {
-            return Math::TransformationMatrix{};
-        }
-
-        Math::TransformationMatrix m;
-        m[0][0] = 2.0f / width;
-        m[0][1] = 0.0f;
-        m[0][2] = -1.0f;
-        m[1][0] = 0.0f;
-        m[1][1] = 2.0f / height;
-        m[1][2] = -1.0f;
-        m[2][0] = 0.0f;
-        m[2][1] = 0.0f;
-        m[2][2] = 1.0f;
-
-        return m;
+        return Math::TranslationMatrix(Math::vec2{ -1.0, -1.0 }) * Math::ScaleMatrix({ 2.0 / view_size.x, 2.0 / view_size.y });
     }
 }

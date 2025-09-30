@@ -115,35 +115,24 @@ namespace CS230
 
     void Window::Update()
     {
-        SetBackgroundColor(background_r, background_g, background_b);
+        SDL_GL_SwapWindow(sdl_window);
 
-        SDL_Event event{ 0 };
+
+       SDL_Event event{ 0 };
         while (SDL_PollEvent(&event) != 0)
         {
-            if (event_callback)
-            {
-                event_callback(event);
-            }
-            switch (event.type)
-            {
-                case SDL_WINDOWEVENT:
-                    if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-                    {
-                        closed = true;
-                    }
-                    if (event.window.event == SDL_WINDOWEVENT_RESIZED || event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-                    {
-                        window_size.x = event.window.data1;
-                        window_size.y = event.window.data2;
-                    }
-                    break;
-                case SDL_QUIT: closed = true; break;
+            eventCallback(event);
 
+            switch (event.window.event)
+            {
+                case SDL_WINDOWEVENT_CLOSE: closed = true; break;
+                case SDL_WINDOWEVENT_RESIZED: size = { event.window.data1, event.window.data2 }; break;
+                case SDL_WINDOWEVENT_SIZE_CHANGED:
+                    break;
                 default: break;
             }
         }
 
-        SDL_GL_SwapWindow(sdl_window);
     }
 
     bool Window::IsClosed() const
@@ -177,7 +166,7 @@ namespace CS230
 
     void Window::SetEventCallback(WindowEventCallback callback)
     {
-        event_callback = std::move(callback);
+        eventCallback = std::move(callback);
     }
 
     float Window::background_r = 0.0f;
